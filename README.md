@@ -44,11 +44,15 @@ npm install
 
 Additionally, install TypeScript (2.3 or higher), [awesome-typescript-loader](https://www.npmjs.com/package/awesome-typescript-loader) and [source-map-loader](https://www.npmjs.com/package/source-map-loader) as dev dependencies if you haven't. awesome-typescript-loader is a Webpack plugin that helps you compile TypeScript code to JavaScript, much like babel-loader for Babel. There are also other alternative loaders for TypeScript, such as [ts-loader](https://github.com/TypeStrong/ts-loader). source-map-loader adds source map support for debugging.
 
-`npm install --save-dev typescript awesome-typescript-loader source-map-loader`
+```
+npm install --save-dev typescript awesome-typescript-loader source-map-loader
+```
 
 Get the type declaration files (.d.ts files) from [@types](https://blogs.msdn.microsoft.com/typescript/2016/06/15/the-future-of-declaration-files/) for any library in use. For this project, we have React and ReactDOM. 
 
-`npm install --save @types/react @types/react-dom`
+```
+npm install --save @types/react @types/react-dom
+```
 
 If you are using an older version of React/ReacDOM that are incompatible with the latest .d.ts files from @types, you can specify version number for `@types/react` and `@types/react-dom` in `package.json`.
 
@@ -87,7 +91,7 @@ Generally, we need to change `webpack.config.js` in a few ways,
 
 Let's modify `webpack.configure.js` as below,
 
-```
+```js
 module.exports = {
   // change to .tsx if necessary
   entry: './src/app.jsx',
@@ -121,7 +125,9 @@ Note that if you plan to adopt TypeScript in the entry file, you should change `
 
 You now have the build pipeline correctly set up with TypeScript handling the transpilation. Try bundling the app with the following command and then open `index.html` in a browser,
 
-`node ./node_modules/webpack/bin/webpack.js`
+```
+node ./node_modules/webpack/bin/webpack.js
+```
 
 # Transition from JS(X) to TS(X)
 
@@ -145,7 +151,9 @@ On line 3 `export class GameStateBar extends React.Component {`, change the clas
 
 By now, awesome-typescript-loader should be able to successfully compile this TypeScript component to JavaScript. Again, try bundling the app with the following command and then open `index.html` in a browser,
 
-`node ./node_modules/webpack/bin/webpack.js`
+```
+node ./node_modules/webpack/bin/webpack.js
+```
 
 ## Add types
 
@@ -155,7 +163,7 @@ For any `React.Component`, we should properly define the types of the property a
 
 The state object contains only one property `gameState` which shows the game status (either nothing, someone wins, or draw). Given `gameState` can only have certain known string literal values, let's use [string literal type](https://www.typescriptlang.org/docs/handbook/advanced-types.html) and define the interface as follow before the class declaration.
 
-```
+```ts
 interface GameStateBarState {
     gameState: "" | "X Wins!" | "O Wins!" | "Draw";    
 }
@@ -163,13 +171,13 @@ interface GameStateBarState {
 
 With the defined interface, change the `GameStateBar` class declaration,
 
-```
+```ts
 export class GameStateBar extends React.Component<{}, GameStateBarState> {...}
 ```
 
 Now, supply type information for its members. Note that providing types to all declarations is not required, but recommended for better type coverage.
 
-```
+```ts
 // add types for params
 constructor(props: {}) {...}
 handleGameStateChange(e: CustomEvent) {...}
@@ -192,14 +200,16 @@ To use stricter type checking, you can also specify useful [compiler options](ht
 
 You can also add [private/protected modifier](https://www.typescriptlang.org/docs/handbook/classes.html) to class members for access control. Let's mark `handleGameStateChange` and `handleRestart` as `private` as they are internal to `gameStateBar`.
 
-```
+```ts
 private handleGameStateChange(e: CustomEvent) {...}
 private handleRestart(e: Event) {...}
 ```
 
 Again, try bundling the app with the following command and then open `index.html` in a browser,
 
-`node ./node_modules/webpack/bin/webpack.js`
+```
+node ./node_modules/webpack/bin/webpack.js
+```
 
 ## Adopt TypeScript in the entire codebase
 
