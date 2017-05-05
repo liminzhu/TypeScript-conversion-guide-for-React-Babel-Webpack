@@ -1,4 +1,4 @@
-This walkthrough illustrates how to adopt TypeScript in an existing React/Babel/Webpack project. We'll start with TicTacToe project written fully in JavaScript in the `TicTacToe_JS` folder as an example. By the end, you will have a TicTacToe project fully written with TypeScript.
+This walkthrough illustrates how to adopt TypeScript in an existing React/Babel/Webpack project. We'll start with a TicTacToe project written fully in JavaScript in the `TicTacToe_JS` folder as an example. By the end, you will have a TicTacToe project fully written with TypeScript.
 
 If you are starting a new React project instead of converting one, you can use [this tutorial](https://github.com/Microsoft/TypeScript-Handbook/blob/master/pages/tutorials/React.md).
 
@@ -11,7 +11,7 @@ Adopting TypeScript in any project can be broken down into 2 phases,
 Before we dive into TypeScript adoption, let's take a look at the structure of the TicTacToe app. It contains a few components and looks like below with or without TypeScript.
 
 <p align="center">
-[[/image/components.png]]
+    <img src ="image/components.png"/>
 </p>
 
 As shown in `package.json`, the app already includes React/ReactDOM, Webpack as bundler & task runner, and [babel-loader](https://github.com/babel/babel-loader) Webpack plugin to use Babel for ES6 and JSX transpilation. The project has the below overall layout before we adopt TypeScript:
